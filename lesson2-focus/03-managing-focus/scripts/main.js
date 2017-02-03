@@ -1,3 +1,5 @@
+var isFirstPage = true;
+
 page('/', function() {
   page.redirect('/what-is-vegemite');
 });
@@ -18,6 +20,15 @@ page('/:slug', function(context) {
   var newPage = document.querySelector('main [data-page='+slug+']');
   newMenuItem.classList.add('is-active');
   newPage.classList.add('is-active');
+
+  //to prevent refocusing at firt run since it will be already focused at its correct position
+  if (isFirstPage) {
+    isFirstPage = false;
+    return;
+  }
+
+  //This focus the header, so with every click the page section will show from the begining
+  newPage.querySelector('h2').focus();
 
 });
 
